@@ -22,6 +22,12 @@ const Partners = ({ showTitle = true, className = '' }) => {
       name: 'RSA Web',
       logo: '/assets/images/partners/rsaweb_logo.png',
       alt: 'RSA Web Logo'
+    },
+    {
+      id: 4,
+      name: 'White Flag Coaching',
+      logo: '/assets/images/partners/whiteflagcoaching.png',
+      alt: 'White Flag Coaching Logo'
     }
   ]
 
@@ -46,8 +52,8 @@ const Partners = ({ showTitle = true, className = '' }) => {
             </p>
           </div>
         )}
-        
-        <div className="relative grid grid-flow-col auto-cols-[minmax(0,_3fr)]">
+  
+        <div className="relative grid grid-flow-row sm:grid-flow-col auto-cols-[minmax(0,_4fr)] gap-4">
           {partners.map((partner) => (
             <div
               key={partner.id}
@@ -55,11 +61,11 @@ const Partners = ({ showTitle = true, className = '' }) => {
                 isAnimating ? 'transform hover:scale-110' : ''
               }`}
             >
-              <div className="relative w-48 h-300">
+              <div className="relative w-48 h-48">
                 <img
                   src={partner.logo}
                   alt={partner.alt}
-                  className="object-contain w-full h-full filter backdrop-grayscale-0 hover:scale-110 rounded-xl transition-all duration-300"
+                  className="object-contain w-full h-full filter hover:scale-110 rounded-xl transition-all duration-300"
                 />
               </div>
             </div>

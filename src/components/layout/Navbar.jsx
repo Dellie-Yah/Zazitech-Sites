@@ -8,7 +8,6 @@ const Navbar = ({ isScrolled }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
 
   const handleContactClick = (e) => {
     e.preventDefault();
@@ -41,7 +40,7 @@ const Navbar = ({ isScrolled }) => {
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white dark:bg-gray-900 shadow-md" : "bg-transparent"
+        isScrolled || isOpen ? "bg-white dark:bg-gray-900 shadow-md" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,16 +56,20 @@ const Navbar = ({ isScrolled }) => {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - UPDATED STYLING */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-950 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+              className={`inline-flex items-center justify-center p-2 rounded-md hover:text-primary-600 dark:hover:text-primary-400 ${
+                isScrolled || isOpen
+                  ? "text-gray-950 dark:text-gray-300" 
+                  : "text-white"
+              }`}
             >
               {isOpen ? (
-                <X className="h-6 w-6" />
+                <X className="h-7 w-7 font-bold" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-7 w-7 font-bold" />
               )}
             </button>
           </div>
@@ -83,7 +86,7 @@ const Navbar = ({ isScrolled }) => {
                     location.pathname === item.href
                       ? "text-primary-600" // Active link always primary colored
                       : isScrolled
-                      ? "text-white hover:text-primary-400" // Non-active links white when scrolled
+                      ? "text-black hover:text-primary-400" // Non-active links white when scrolled
                       :"text-white hover:text-primary-400" // Non-active links white when not scrolled
                   }`}
                 >
@@ -97,7 +100,7 @@ const Navbar = ({ isScrolled }) => {
                     location.pathname === item.href
                       ? "text-primary-600" // Active link always primary colored
                       : isScrolled
-                      ? "text-white hover:text-primary-400" // Non-active links white when scrolled
+                      ? "text-black hover:text-primary-400" // Non-active links white when scrolled
                       :"text-white hover:text-primary-400" // Non-active links white when not scrolled
                   }`}
                 >
@@ -109,7 +112,7 @@ const Navbar = ({ isScrolled }) => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - UPDATED TEXT COLORS */}
       {isOpen && (
         <div className="md:hidden bg-white dark:bg-gray-900 shadow-lg">
           <div className="px-2 pt-2 pb-3 space-y-1">
@@ -122,9 +125,7 @@ const Navbar = ({ isScrolled }) => {
                   className={`block px-3 py-2 rounded-md text-base font-medium ${
                     location.pathname === item.href
                       ? "text-primary-600" // Active link always primary colored
-                      : isScrolled
-                      ? "text-white hover:text-primary-400" // Non-active links white when scrolled
-                      : "text-white hover:text-primary-400" // Non-active links white when not scrolled
+                      : "text-gray-800 dark:text-gray-200 hover:text-primary-400" // Dark text for mobile menu items
                   }`}
                 >
                   {item.name}
@@ -136,9 +137,7 @@ const Navbar = ({ isScrolled }) => {
                   className={`block px-3 py-2 rounded-md text-base font-medium ${
                     location.pathname === item.href
                       ? "text-primary-600" // Active link always primary colored
-                      : isScrolled
-                      ? "text-white hover:text-primary-400" // Non-active links white when scrolled
-                      : "text-white hover:text-primary-400" // Non-active links white when not scrolled
+                      : "text-gray-800 dark:text-gray-200 hover:text-primary-400" // Dark text for mobile menu items
                   }`}
                 >
                   {item.name}

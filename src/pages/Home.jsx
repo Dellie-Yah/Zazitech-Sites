@@ -20,14 +20,14 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center bg-contain bg-center bg-[url('/assets/images/home-banner.jpg')]">
-        <div className="absolute inset-0 bg-black/80" />
+      <section className="relative h-screen flex items-center justify-center bg-cover bg-center bg-[url('/assets/images/Zazi_Tech_Home_Page.png')]">
+        <div className="absolute inset-0 bg-black/70" />
         <div className="relative z-40 text-center text-white px-4">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             Zazitech Solutions
           </h1>
           <p className="text-xl md:text-2xl mb-8">
-            Empowering Your Digital Journey with Innovative Solutions
+            Empowering our community through accessible digital literacy and professional services
           </p>
           <button
             onClick={() => navigate("/contact")}
@@ -50,7 +50,7 @@ export default function Home() {
             />
             <ServiceCard
               icon={Users}
-              title="IT Training"
+              title="Computer Training"
               description="Microsoft Office and Programming classes for all skill levels"
             />
             <ServiceCard
@@ -83,11 +83,10 @@ export default function Home() {
             <div>
               <h2 className="text-4xl font-bold mb-6">About Us</h2>
               <p className="text-gray-600 mb-8">
-                At Zazitech, we're passionate about bridging the digital divide
-                and empowering businesses and individuals with cutting-edge
-                technology solutions. With years of experience and a dedicated
-                team, we provide comprehensive IT services tailored to your
-                needs.
+                Zazi Tech Solutions is a dynamic digital services provider and internet café dedicated to improving digital literacy and accessibility. 
+                Zazi Tech Solutions serves a diverse range of customers, from community members needing internet and document support to corporate clients 
+                seeking professional training and digital branding services. <br/><br/>Our commitment to quality and accessibility positions Zazi Tech Solutions as a 
+                vital resource for digital skill-building, business development, and technological empowerment within the community.
               </p>
               <button
                 onClick={() => navigate("/about")}
@@ -141,7 +140,7 @@ export default function Home() {
       </section>
 
       {/* Partners Section */}
-      <section className="py-20" id="contact">
+      <section className="py-20" id="partners">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Partners />
         </div>
@@ -150,7 +149,7 @@ export default function Home() {
       {/* Contact Section */}
       <section ref={contactRef} className="py-20 bg-gray-50" id="contact">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8 bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-4xl font-bold text-center mb-12">Contact Us</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">Send Us A Message</h2>
           <ContactForm />
         </div>
       </section>

@@ -1,5 +1,6 @@
 // src/pages/WebHosting.jsx
 import { Check, HardDrive, Mail } from "lucide-react";
+import { Link } from 'react-router-dom'
 
 export default function WebHosting() {
   const hostingPackages = [
@@ -218,9 +219,9 @@ function PriceCard({ package: pkg }) {
             </li>
           ))}
         </ul>
-        <button className="w-full bg-primary-600 text-white py-2 rounded-md hover:bg-primary-700 transition-colors">
+        <Link to="/contact" className="w-full bg-primary-600 text-white px-5 py-3 rounded-md hover:bg-primary-700 transition-colors">
           Get Started
-        </button>
+        </Link>
       </div>
     </div>
   );
@@ -243,9 +244,9 @@ function EmailPackageCard({ package: pkg }) {
           </li>
         ))}
       </ul>
-      <button className="w-full bg-primary-600 text-white py-2 rounded-md hover:bg-primary-700 transition-colors">
+      <Link to="/contact" className="w-full bg-primary-600 text-white px-5 py-3 rounded-md hover:bg-primary-700 transition-colors">
         Get Started
-      </button>
+      </Link>
     </div>
   );
 }

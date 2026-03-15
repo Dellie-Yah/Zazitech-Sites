@@ -1,5 +1,5 @@
 // pages/api/send-email.js
-import { getAuthToken } from "@/lib/auth";
+// import { getAuthToken } from "@/lib/auth";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -8,14 +8,13 @@ export default async function handler(req, res) {
 
   try {
     // Get auth token using credentials stored securely on the server
-    const token = await getAuthToken();
+    // const token = await getAuthToken();
 
     // Forward the request to the email service
     const response = await fetch("http://localhost:7580/send-email", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(req.body),
     });

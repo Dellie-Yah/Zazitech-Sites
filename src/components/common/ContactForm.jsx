@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Send, Loader2 } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Send, Loader2, ChevronDown } from "lucide-react";
 import { sendEmail } from "@/services/emailService";
+import SuccessMessage from "./SuccessMessage";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -9,8 +9,21 @@ export default function ContactForm() {
     email: "",
     phone: "",
     subject: "",
+    category: "",
     message: "",
   });
+
+  // Categories for the dropdown
+  const categories = [
+    { value: "", label: "Select a category" },
+    { value: "General Inquiry", label: "General Inquiry" },
+    { value: "Technical Support", label: "Technical Support" },
+    { value: "Sales", label: "Sales" },
+    { value: "Feedback", label: "Feedback" },
+    { value: "Kids Coding", label: "Kids Coding" },
+    { value: "Microsoft Office Training", label: "Microsoft Office Training" },
+    { value: "Other", label: "Other" },
+  ];
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,6 +64,11 @@ export default function ContactForm() {
       newErrors.subject = "Subject must be at least 3 characters";
     } else if (formData.subject.trim().length > 100) {
       newErrors.subject = "Subject must be less than 100 characters";
+    }
+
+    // Category validation (for dropdown)
+    if (!formData.category) {
+      newErrors.category = "Please select a category";
     }
 
     // Message validation
@@ -95,6 +113,7 @@ export default function ContactForm() {
         email: "",
         phone: "",
         subject: "",
+        category: "",
         message: "",
       });
     } catch (error) {
@@ -125,14 +144,9 @@ export default function ContactForm() {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      {submitStatus.message && (
-        <Alert
-          variant={submitStatus.type === "error" ? "destructive" : "default"}
-        >
-          <AlertDescription>{submitStatus.message}</AlertDescription>
-        </Alert>
-      )}
-
+      {submitStatus.type === "success" ? (
+        <SuccessMessage />
+      ) :  (
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -203,6 +217,38 @@ export default function ContactForm() {
 
           <div>
             <label
+              htmlFor="category"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Category *
+            </label>
+            <div className="relative">
+              <select
+                id="category"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                className={`w-full px-4 py-2 border rounded-md appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 ${
+                  errors.category ? "border-red-500 focus:ring-red-400" : "border-gray-300 hover:border-gray-400"
+                }`}
+              >
+                {categories.map((category) => (
+                  <option key={category.value} value={category.value} disabled={category.value === ""} className={category.value === "" ? "text-gray-500" : ""}>
+                    {category.label}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-500 bg-gradient-to-l from-white to-transparent pl-6 pr-2">
+                <ChevronDown className="h-5 w-5 transition-transform duration-200 group-hover:text-primary-500" />
+              </div>
+            </div>
+            {errors.category && (
+              <p className="mt-1 text-sm text-red-500">{errors.category}</p>
+            )}
+          </div>
+
+          <div className="md:col-span-2">
+            <label
               htmlFor="subject"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
@@ -266,6 +312,7 @@ export default function ContactForm() {
           </div>
         </div>
       </form>
+      )}
     </div>
   );
 }

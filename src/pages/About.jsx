@@ -1,6 +1,4 @@
 // src/pages/About.jsx
-import { CheckCircle2 } from "lucide-react";
-
 export default function About() {
   return (
     <div className="flex flex-col">
@@ -9,10 +7,8 @@ export default function About() {
         <div className="absolute h-full inset-0 bg-black/80" />
           <div className="relative z-40 text-center text-white px-4">
             <h1 className="text-3xl md:text-4xl font-bold mb-6">About Us</h1>
-            <p className="text-l md:text-xl mx-12">
-              Zazitech is your trusted partner in digital transformation,
-              providing comprehensive IT solutions and services to businesses
-              and individuals across South Africa.
+            <p className="text-l md:text-xl mx-12 w-1/2 mx-auto">
+              Zazi Tech Solutions aims to bridge the digital divide, support local organisations, schools, businesses, and foster economic growth by providing high-quality, affordable digital solutions for individuals and companies alike.
             </p>
           </div>
       </section>
@@ -46,7 +42,7 @@ export default function About() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-12">Our Values</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <ValueCard
               title="Innovation"
               description="We constantly seek new ways to improve and innovate in everything we do"
@@ -59,45 +55,10 @@ export default function About() {
               title="Integrity"
               description="We conduct our business with the highest level of integrity and transparency"
             />
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">
-            Why Choose Us
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <Feature
-                title="Experienced Team"
-                description="Our team brings years of industry experience and expertise"
-              />
-              <Feature
-                title="Comprehensive Solutions"
-                description="One-stop shop for all your technology needs"
-              />
-              <Feature
-                title="Customer Focus"
-                description="Dedicated to providing exceptional customer service"
-              />
-            </div>
-            <div className="space-y-6">
-              <Feature
-                title="Affordable Pricing"
-                description="Competitive rates without compromising on quality"
-              />
-              <Feature
-                title="Local Support"
-                description="Quick and reliable local support when you need it"
-              />
-              <Feature
-                title="Modern Facilities"
-                description="State-of-the-art facilities and equipment"
-              />
-            </div>
+            <ValueCard
+              title="Collaboration"
+              description="Working together to share ideas and skills to achieve a common goal."
+            />
           </div>
         </div>
       </section>
@@ -105,22 +66,22 @@ export default function About() {
       {/* Team Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Our Team</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">Our People</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <TeamMember
-              name="John Doe"
+              name="Vusumzi Mqoboli"
               position="CEO & Founder"
-              image="/team/john.jpg"
+              image="/assets/images/team/placeholder.jpg"
             />
             <TeamMember
-              name="Jane Smith"
+              name="Dumisani Thobela"
+              position="Operational Manager"
+              image="/assets/images/team/placeholder.jpg"
+              />
+            <TeamMember
+              name="Delron Claassen"
               position="Technical Director"
-              image="/team/jane.jpg"
-            />
-            <TeamMember
-              name="Mike Johnson"
-              position="Customer Relations Manager"
-              image="/team/mike.jpg"
+              image="/assets/images/team/placeholder.jpg"
             />
           </div>
         </div>
@@ -134,18 +95,6 @@ function ValueCard({ title, description }) {
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h3 className="text-xl font-semibold mb-4">{title}</h3>
       <p className="text-gray-600">{description}</p>
-    </div>
-  );
-}
-
-function Feature({ title, description }) {
-  return (
-    <div className="flex items-start">
-      <CheckCircle2 className="h-6 w-6 text-primary-600 mt-1 mr-4 flex-shrink-0" />
-      <div>
-        <h3 className="text-lg font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600">{description}</p>
-      </div>
     </div>
   );
 }

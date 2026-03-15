@@ -1,72 +1,71 @@
 // src/services/emailService.js
-const BASE_URL = import.meta.env.VITE_API_URL;
-const AUTH_CREDENTIALS = {
-  username: import.meta.env.VITE_API_USERNAME,
-  password: import.meta.env.VITE_API_PASSWORD,
-  domain: import.meta.env.VITE_API_DOMAIN
-};
 
-let authToken = null;
-let tokenExpiry = null;
+const BASE_URL = import.meta.env.VITE_EMAIL_API_URL;
+const API_KEY = import.meta.env.VITE_EMAIL_API_KEY;
+const RECIPIENT = import.meta.env.VITE_EMAIL_RECIPIENT || 'contact@zazitech.co.za';
+const SUBJECT_PREFIX = import.meta.env.VITE_EMAIL_SUBJECT_PREFIX || 'Contact Form - Zazitech Solutions';
 
-async function getAuthToken() {
-  // Check if we have a valid token
-  if (authToken && tokenExpiry && Date.now() < tokenExpiry) {
-    return authToken;
-  }
+function createPlainText(formData) {
+  const { name, email, phone, category, subject, message } = formData;
+  const now = new Date();
+  return [
+    `${SUBJECT_PREFIX}: ${subject}`,
+    `Submitted on ${now.toLocaleDateString()} at ${now.toLocaleTimeString()}`,
+    '',
+    `Name: ${name}`,
+    `Email: ${email}`,
+    phone ? `Phone: ${phone}` : null,
+    `Category: ${category}`,
+    '',
+    'Message:',
+    message,
+    '',
+    'This email was sent from the contact form on your website.',
+  ].filter(line => line !== null).join('\n');
+}
 
-  // Get new token
-  try {
-    const response = await fetch(`${BASE_URL}/auth`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: AUTH_CREDENTIALS.username,
-        password: AUTH_CREDENTIALS.password,
-        domain: AUTH_CREDENTIALS.domain,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Authentication failed");
-    }
-
-    const data = await response.json();
-    authToken = data.token;
-    tokenExpiry = Date.now() + 55 * 60 * 1000; // Set expiry to 55 minutes
-    return authToken;
-  } catch (error) {
-    console.error("Auth error:", error);
-    throw new Error("Authentication failed");
-  }
+function createHtml(formData) {
+  const { name, email, phone, category, subject, message } = formData;
+  const now = new Date();
+  return `
+    <h2>${SUBJECT_PREFIX}: ${subject}</h2>
+    <p><em>Submitted on ${now.toLocaleDateString()} at ${now.toLocaleTimeString()}</em></p>
+    <table cellpadding="6">
+      <tr><td><strong>Name</strong></td><td>${name}</td></tr>
+      <tr><td><strong>Email</strong></td><td>${email}</td></tr>
+      ${phone ? `<tr><td><strong>Phone</strong></td><td>${phone}</td></tr>` : ''}
+      <tr><td><strong>Category</strong></td><td>${category}</td></tr>
+    </table>
+    <h3>Message</h3>
+    <p>${message.replace(/\n/g, '<br>')}</p>
+    <hr>
+    <small>Sent from the contact form on zazitech.co.za</small>
+  `.trim();
 }
 
 export async function sendEmail(formData) {
   try {
-    // Get auth token
-    const token = await getAuthToken();
-
-    // Send email
-    const response = await fetch(`${BASE_URL}/send-email`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(formData),
+    const response = await fetch(`${BASE_URL}/api/send`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        apiKey: API_KEY,
+        to: RECIPIENT,
+        subject: `${SUBJECT_PREFIX}: ${formData.subject}`,
+        message: createPlainText(formData),
+        html: createHtml(formData),
+      }),
     });
 
-    const data = await response.json();
+    const result = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error || "Failed to send email");
+      throw new Error(result.message || 'Failed to send email');
     }
 
-    return data;
+    return result;
   } catch (error) {
-    console.error("Email error:", error);
+    console.error('Email error:', error);
     throw error;
   }
 }

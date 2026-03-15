@@ -6,10 +6,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   const socialLinks = [
-    { name: 'Facebook', icon: Facebook, href: '#' },
-    { name: 'Twitter', icon: Twitter, href: '#' },
-    { name: 'Instagram', icon: Instagram, href: '#' },
-    { name: 'LinkedIn', icon: Linkedin, href: '#' },
+    { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/share/18WUXhTt7U/' },
+    // { name: 'Twitter', icon: Twitter, href: '#' },
+    // { name: 'Instagram', icon: Instagram, href: '#' },
+    // { name: 'LinkedIn', icon: Linkedin, href: '#' },
     { name: 'Email', icon: Mail, href: 'mailto:info@zazitech.co.za' },
   ]
 
@@ -18,26 +18,20 @@ export default function Footer() {
       title: 'Company',
       links: [
         { name: 'About', href: '/about' },
-        { name: 'Careers', href: '#' },
+        { name: 'Services', href: '/services' },
+        { name: 'Web Hosting', href: '/hosting' },
         { name: 'Contact', href: '/contact' },
       ],
     },
     {
       title: 'Services',
       links: [
-        { name: 'Web Development', href: '#' },
-        { name: 'Mobile Apps', href: '#' },
-        { name: 'Consulting', href: '#' },
+        { name: 'Graphics Design', href: '/services#graphics-design' },
+        { name: 'Web Development', href: '/services#web-development' },
+        { name: 'Computer Training', href: '/services#web-development' },
+        { name: 'Internet Cafe', href: '/services#internet-cafe' },
       ],
-    },
-    {
-      title: 'Legal',
-      links: [
-        { name: 'Privacy Policy', href: '#' },
-        { name: 'Terms of Service', href: '#' },
-        { name: 'Cookie Policy', href: '#' },
-      ],
-    },
+    }
   ]
 
   return (
